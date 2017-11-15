@@ -16,11 +16,9 @@ export default {
       index: null
     }
   },
-  created () {
-    this.registerSelf()
-  },
-  mounted () {
-    this.isChoice = true
+  async created () {
+    await this.registerSelf()
+    this.$parent.$emit('choiceCreated', this.index)
   },
   methods: {
     ...mapActions([

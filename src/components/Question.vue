@@ -11,28 +11,27 @@ import { mapActions } from 'vuex'
 export default {
   data () {
     return {
-      index: null
+      index: null,
+      choicesFound: false
     }
   },
   async created () {
     await this.registerSelf()
+    this.$on('choiceCreated', this.registerChoice)
   },
   async mounted () {
-    this.findChoices()
+    await this.findChoices()
   },
   methods: {
     ...mapActions([
       'registerQuestion',
       'registerQuestionChoice'
     ]),
-    async findChoices () {
-      this.$slots.choices.forEach(async (el, i) => {
-        if (el.isComment) {
-          await this.registerQuestionChoice(this.index, i)
-        }
-      }, this)
+    async registerChoice (choiceIndex) {
+      const questionIndex = this.questionIndex
+      await this.registerQuestionChoice({ questionIndex, choiceIndex })
     },
-    async registerQuistion () {
+    async registerSelf () {
       this.index = await this.registerQuestion()
     }
   }

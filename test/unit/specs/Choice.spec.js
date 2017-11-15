@@ -20,10 +20,6 @@ describe('Choice.vue', () => {
       actions
     })
   })
-  it('should have isChoice set to true', () => {
-    const wrapper = shallow(Choice, { store, localVue })
-    expect(wrapper.vm.isChoice).to.equal(true)
-  })
   it('should have an index after being created', async () => {
     const wrapper = shallow(Choice, { store, localVue })
     await wrapper.vm.$nextTick()
